@@ -22,24 +22,29 @@ const getAllCategories = async (req, res) => {
 
 const getCategorybyId = async (req, res) => {
 
+    const { _id } = req.query
     try {
-
+        await connect(process.env.MONGO_URI)
+        const category = await Category.findOne({ _id })
+        res.json({ category })
     } catch (error) {
-
         res.status(400).json({
             message: error.message
         })
 
     }
 
+
 }
 
 const getCategorybyName = async (req, res) => {
 
+    const { CategoryName } = req.query
     try {
-
+        await connect(process.env.MONGO_URI)
+        const category = await Category.findOne({ CategoryName })
+        res.json({ category })
     } catch (error) {
-
         res.status(400).json({
             message: error.message
         })
@@ -92,9 +97,27 @@ const createCategory = async (req, res) => {
 
 const updateCategory = async (req, res) => {
 
-    try {
+    const { _id, CategoryName, CategoryImage } = req.body
 
-    } catch (error) {
+    const filter = { _id };
+    const update = { CategoryName, CategoryImage };
+
+    try {
+        await connect(process.env.MONGO_URI)
+
+        await Category.findOneAndUpdate(filter, update, {
+            new: true
+        });
+
+        const category = await Category.find()
+
+        res.json({
+            message: "Updated Successfully",
+            category
+        })
+
+    }
+    catch (error) {
 
         res.status(400).json({
             message: error.message
@@ -102,18 +125,29 @@ const updateCategory = async (req, res) => {
 
     }
 }
+
 
 const deleteCategory = async (req, res) => {
 
+    const { _id } = req.body
+
     try {
+        await connect(process.env.MONGO_URI)
+        await Category.deleteOne({ _id })
+        const category = await Category.find()
+        res.status(200).json({
+            message: "Deleted Successfully",
+            category
+        })
 
     } catch (error) {
-
         res.status(400).json({
             message: error.message
         })
 
     }
-
 }
+
+
+
 module.exports = { getAllCategories, getCategorybyId, getCategorybyName, createCategory, deleteCategory, updateCategory }
