@@ -1,6 +1,6 @@
 const app =require('express')
 const router = app.Router()
-const { getAllCategories ,getCategorybyId,getCategorybyName,createCategory,deleteCategory,updateCategory}=require('./Controller')
+const { getAllCategories ,getCategorybyId,getCategorybyName,createCategory,deleteCategory,updateCategory}=require('./controller')
 
 router.get('/get-all-categories',getAllCategories)
 router.get('/get-category-by-id',getCategorybyId)

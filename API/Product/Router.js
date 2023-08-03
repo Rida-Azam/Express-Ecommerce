@@ -1,6 +1,6 @@
 const app =require('express')
 const router = app.Router()
-const { createProduct,getAllProduct,getProductbyCategory,deleteProduct,updateProduct}=require('./Controller')
+const { createProduct,getAllProduct,getProductbyCategory,deleteProduct,updateProduct}=require('./controller')
 
 router.get('/get-all-product',getAllProduct)
 router.get('/get-product-by-category',getProductbyCategory)

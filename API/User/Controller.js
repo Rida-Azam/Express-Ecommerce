@@ -1,4 +1,4 @@
-const User = require('./Model')
+const User = require('./model')
 const { connect } = require('mongoose')
 require('dotenv').config()
 const { hash, compare } = require('bcryptjs')
